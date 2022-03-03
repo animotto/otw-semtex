@@ -153,4 +153,20 @@ module Semtex
       output.map { |b| (b + 'A'.ord).chr }.join
     end
   end
+
+  ##
+  # Level 2
+  class Level2 < LevelBase
+    LEVEL = 2
+
+    SOURCE = 'src/level2.c'
+    SHARED = 'level2.so'
+    SEMTEX = '/semtex/semtex2'
+
+    def exec
+      @shell.log("$ cc #{SOURCE} -o #{SHARED} -shared -m32")
+      @shell.log("$ export LD_PRELOAD=#{SHARED}")
+      @shell.log("$ #{SEMTEX}")
+    end
+  end
 end
