@@ -7,10 +7,10 @@ module Semtex
   # Shell
   class Shell
     BANNER = <<~ENDBANNER
-    ____________________________
+      ____________________________
 
-     OverTheWire wargame Semtex
-    ____________________________
+       OverTheWire wargame Semtex
+      ____________________________
 
     ENDBANNER
 
@@ -23,6 +23,11 @@ module Semtex
 
     def log(message = '')
       @out.puts(message)
+    end
+
+    def readline(prompt)
+      @out.print(prompt)
+      @in.gets
     end
 
     def choose(title, list)
@@ -51,7 +56,10 @@ module Semtex
         break unless line
 
         line.strip!
-        next if line.empty?
+        if line.empty?
+          Readline::HISTORY.pop
+          next
+        end
 
         words = line.split(/\s+/)
         cmd = words[0].downcase
